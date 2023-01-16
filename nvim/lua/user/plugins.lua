@@ -14,11 +14,11 @@ local packer_bootstrap = ensure_packer()
 require('packer').reset()
 require('packer').init({
   compile_path = vim.fn.stdpath('data')..'/site/plugin/packer_compiled.lua',
-  display = {
-    open_fn = function()
-      return require('packer.util').float({ border = 'solid' })
-    end,
-  },
+  -- display = {
+  --   open_fn = function()
+  --     return require('packer.util').float({ border = 'solid' })
+  --   end,
+  -- },
 })
 
 local use = require('packer').use
