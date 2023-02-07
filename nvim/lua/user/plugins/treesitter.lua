@@ -1,8 +1,9 @@
 require('nvim-treesitter.configs').setup({
+  ensure_installed = 'all',
   highlight = {
     enable = true,
     disable = { 'NvimTree' },
-    additional_vim_regex_highlighting = true,
+    -- additional_vim_regex_highlighting = true,
   },
   context_commentstring = {
     enable = true,

@@ -4,6 +4,7 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 
 vim.opt.smartindent = true
+vim.opt.autoindent = true
 
 vim.opt.wrap = false
 
@@ -44,8 +45,8 @@ vim.opt.undofile = true -- persistent undo
 vim.opt.backup = true -- automatically save a backup file
 vim.opt.backupdir:remove('.') -- keep backups out of the current directory
 
---vim.opt.breakindent = true -- maintain indent when wrapping indented lines
---vim.opt.shortmess:append({ I = true }) -- disable the splash screen
---vim.opt.showmode = false
---vim.opt.updatetime = 4001 -- Set updatime to 1ms longer than the default to prevent polyglot from changing it
---vim.opt.redrawtime = 10000 -- Allow more time for loading syntax on large files
+vim.opt.breakindent = true -- maintain indent when wrapping indented lines
+vim.opt.shortmess:append({ I = true }) -- disable the splash screen
+vim.opt.showmode = false
+vim.opt.updatetime = 4001 -- Set updatime to 1ms longer than the default to prevent polyglot from changing it
+vim.opt.redrawtime = 10000 -- Allow more time for loading syntax on large files
