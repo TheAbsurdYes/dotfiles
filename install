@@ -10,3 +10,6 @@ ln -sf $DOTFILES/scripts/t $HOME/.local/bin/t
 
 rm -rf $HOME/.config/nvim
 ln -sf $DOTFILES/nvim $HOME/.config/nvim
+
+rm -rf $HOME/.config/phpactor
+ln -sf $DOTFILES/phpactor $HOME/.config/phpactor
