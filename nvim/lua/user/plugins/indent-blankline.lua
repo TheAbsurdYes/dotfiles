@@ -1,15 +1,21 @@
-require('indent_blankline').setup({
-  filetype_exclude = {
-    'help',
-    'terminal',
-    'dashboard',
-    'packer',
-    'lspinfo',
-    'TelescopePrompt',
-    'TelescopeResults',
-  },
-  buftype_exclude = {
-    'terminal',
-    'NvimTree',
-  },
-})
+return {
+  'lukas-reineke/indent-blankline.nvim',
+  main = "ibl",
+  opts = {
+    exclude = {
+      filetypes = {
+        'help',
+        'terminal',
+        'dashboard',
+        'packer',
+        'lspinfo',
+        'TelescopePrompt',
+        'TelescopeResults',
+      },
+      buftypes = {
+        'terminal',
+        'NvimTree',
+      }
+    }
+  }
+}
