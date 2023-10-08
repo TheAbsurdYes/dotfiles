@@ -78,6 +78,10 @@ return {
     -- Tailwind CSS
     require('lspconfig').tailwindcss.setup({ capabilities = capabilities })
 
+    require('lspconfig').emmet_ls.setup({
+      capabilities = capabilities,
+    })
+
     -- JSON
     require('lspconfig').jsonls.setup({
       capabilities = capabilities,
