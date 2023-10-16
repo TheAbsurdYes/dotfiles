@@ -1,7 +1,16 @@
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
-    'williamboman/mason.nvim',
+    {
+      'williamboman/mason.nvim',
+      opt = {
+        ensure_installed = {
+          "clangd",
+          "clang-format",
+          "codelldb",
+        }
+      }
+    },
     'williamboman/mason-lspconfig.nvim',
     'b0o/schemastore.nvim',
     { 'jose-elias-alvarez/null-ls.nvim', dependencies = 'nvim-lua/plenary.nvim' },
@@ -92,6 +101,14 @@ return {
       },
     })
 
+    require('lspconfig').clangd.setup({
+      on_attach = function(client, bufnr)
+        client.server_capabilities.signatureHelpProvider = false
+        on_attach(client, bufnr)
+      end,
+      capabilities = capabilities
+    })
+
     -- null-ls
     local null_ls = require('null-ls')
     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -120,6 +137,7 @@ return {
             return utils.root_has_file({ '.prettierrc', '.prettierrc.json', '.prettierrc.yml', '.prettierrc.js', 'prettier.config.js' })
           end,
         }),
+        null_ls.builtins.formatting.clang_format,
       },
       on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then

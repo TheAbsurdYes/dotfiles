@@ -118,5 +118,13 @@ require("lazy").setup({
 
   -- Testing helper
   { import = 'user.plugins.vim-test' },
+  
+  -- Debbuging stuff
+  --
+  { import = 'user.plugins.nvim-dap-ui' },
+
+  { import = 'user.plugins.mason-nvim-dap' },
+
+  { import = 'user.plugins.nvim-dap' },
 
 })
