@@ -1,0 +1,28 @@
+set number relativenumber
+set surround
+set ideajoin
+set scrolloff=15
+set sidescrolloff=15
+set ignorecase smartcase
+set clipboard+=unnamed
+
+let mapleader = " "
+
+" system clipboard
+" vmap <leader>y "+y
+" vmap <leader>d "+d
+" nmap <leader>y "+yy
+" nmap <leader>p "+p
+" nmap <leader>P "+P
+" vmap <leader>p "+p
+" vmap <leader>P "+P
+
+set NERDTree
+let g:NERDTreeMapActivateNode='l'
+let g:NERDTreeMapJumpParent='h'
+
+" For insert mode, map ';;' to '<Esc>A;<Esc>'
+nmap ;; A;<ESC>
+
+" For insert mode, map ',,' to '<Esc>A,<Esc>'
+nmap ,, A,<ESC>
