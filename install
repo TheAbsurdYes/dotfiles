@@ -14,4 +14,4 @@ ln -sf $DOTFILES/nvim $HOME/.config/nvim
 rm -rf $HOME/.config/phpactor
 ln -sf $DOTFILES/phpactor $HOME/.config/phpactor
 
-ln -sf $DOTFILES/.ideavimrc $HOME/.ideavimrc
+ln -sf $DOTFILES/idea/.ideavimrc $HOME/.ideavimrc
