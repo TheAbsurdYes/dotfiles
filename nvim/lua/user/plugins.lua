@@ -81,7 +81,7 @@ require("lazy").setup({
   { import = 'user.plugins.telescope' },
 
   -- File tree sidebar
-  { import = 'user.plugins.nvim-tree'},
+  { import = 'user.plugins.neo-tree'},
 
   -- A Status line.
   { import = 'user.plugins.lualine'},
