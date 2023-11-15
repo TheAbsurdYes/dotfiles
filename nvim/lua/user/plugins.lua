@@ -30,7 +30,7 @@ require("lazy").setup({
   {'tpope/vim-eunuch'},
 
   -- Pairs of handy bracket mappings, like [b and ]b.
-  {'tpope/vim-unimpaired'},
+  {'tpope/vim-unimpaired', event = 'VeryLazy' },
 
   -- Indent autodetection with editorconfig support.
   {'tpope/vim-sleuth'},
@@ -127,4 +127,21 @@ require("lazy").setup({
 
   { import = 'user.plugins.nvim-dap' },
 
+  { import = 'user.plugins.noice' },
+
+  { import = 'user.plugins.refactoring' },
+
+  { import = 'user.plugins.mini-animate' },
+
+}, {
+  checker = {
+    enabled = true,
+    notify = false,
+  },
+  change_detection = {
+    notify = false,
+  },
+  install = {
+    colorscheme = { "tokyonight", "habamax" },
+  },
 })

@@ -1,5 +1,6 @@
 return {
   'neovim/nvim-lspconfig',
+  event = 'VeryLazy',
   dependencies = {
     {
       'williamboman/mason.nvim',
@@ -8,6 +9,14 @@ return {
           "clangd",
           "clang-format",
           "codelldb",
+          "stylua",
+          "selene",
+          "luacheck",
+          "shellcheck",
+          "shfmt",
+          "tailwindcss-language-server",
+          "typescript-language-server",
+          "css-lsp",
         }
       }
     },
@@ -22,6 +31,73 @@ return {
     require('mason-lspconfig').setup({ automatic_installation = true })
 
     local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+    -- Lua
+    require('lspconfig').lua_ls.setup({
+      -- enabled = false,
+      single_file_support = true,
+      settings = {
+        Lua = {
+          workspace = {
+            checkThirdParty = false,
+          },
+          completion = {
+            workspaceWord = true,
+            callSnippet = "Both",
+          },
+          misc = {
+            parameters = {
+              -- "--log-level=trace",
+            },
+          },
+          hint = {
+            enable = true,
+            setType = false,
+            paramType = true,
+            paramName = "Disable",
+            semicolon = "Disable",
+            arrayIndex = "Disable",
+          },
+          doc = {
+            privateName = { "^_" },
+          },
+          type = {
+            castNumberToInteger = true,
+          },
+          diagnostics = {
+            disable = { "incomplete-signature-doc", "trailing-space" },
+            -- enable = false,
+            groupSeverity = {
+              strong = "Warning",
+              strict = "Warning",
+            },
+            groupFileStatus = {
+              ["ambiguity"] = "Opened",
+              ["await"] = "Opened",
+              ["codestyle"] = "None",
+              ["duplicate"] = "Opened",
+              ["global"] = "Opened",
+              ["luadoc"] = "Opened",
+              ["redefined"] = "Opened",
+              ["strict"] = "Opened",
+              ["strong"] = "Opened",
+              ["type-check"] = "Opened",
+              ["unbalanced"] = "Opened",
+              ["unused"] = "Opened",
+            },
+            unusedLocalExclude = { "_*" },
+          },
+          format = {
+            enable = true,
+            defaultConfig = {
+              indent_style = "space",
+              indent_size = "2",
+              continuation_indent_size = "2",
+            },
+          },
+        },
+      },
+    })
 
     -- PHP
     require('lspconfig').intelephense.setup({
@@ -134,7 +210,8 @@ return {
         }),
         null_ls.builtins.formatting.prettier.with({
           condition = function(utils)
-            return utils.root_has_file({ '.prettierrc', '.prettierrc.json', '.prettierrc.yml', '.prettierrc.js', 'prettier.config.js' })
+            return utils.root_has_file({ '.prettierrc', '.prettierrc.json', '.prettierrc.yml', '.prettierrc.js',
+              'prettier.config.js' })
           end,
         }),
         null_ls.builtins.formatting.clang_format,
@@ -152,6 +229,7 @@ return {
         end
       end,
     })
+
 
     require('mason-null-ls').setup({ automatic_installation = true })
 

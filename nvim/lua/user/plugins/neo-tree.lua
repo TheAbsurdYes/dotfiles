@@ -63,7 +63,7 @@ return {
     },
     window = {
       mappings = {
-        ["<cr>"] = "open_with_window_picker",
+        ["l"] = "open_with_window_picker",
       },
     },
     filesystem = {

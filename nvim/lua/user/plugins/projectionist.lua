@@ -35,6 +35,9 @@ return {
         ['database/migrations/*.php'] = {
           type = 'migration',
         },
+        ['config/*.php'] = {
+          type = 'config',
+        }
       },
       ['src/&composer.json'] = {
         ['src/*.php'] = {

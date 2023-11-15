@@ -15,3 +15,6 @@ rm -rf $HOME/.config/phpactor
 ln -sf $DOTFILES/phpactor $HOME/.config/phpactor
 
 ln -sf $DOTFILES/idea/.ideavimrc $HOME/.ideavimrc
+
+mkdir -p $HOME/.nvm
+ln -sf $DOTFILES/nvm/default-packages $HOME/.nvm/default-packages
