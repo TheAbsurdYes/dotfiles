@@ -4,6 +4,12 @@ snippet pubf "public method"
 		${0}
 	}
 
+snippet pubsf "public static method"
+	public static function ${1}(${2}): $3
+	{
+		${0}
+	}
+
 snippet prof "protected method"
 	protected function ${1}(${2}): $3
 	{
@@ -28,3 +34,6 @@ snippet testa "test method (annotation)"
 	{
 		${0}
 	}
+
+snippet v "variable declaration"
+	$${1} = ${0};

@@ -5,16 +5,23 @@ return {
     'nvim-tree/nvim-web-devicons',
     'nvim-telescope/telescope-live-grep-args.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+    { 'nvim-telescope/telescope-ui-select.nvim' },
   },
   keys = {
-    { '<leader>f', function() require('telescope.builtin').find_files() end },
-    { '<leader>F', function() require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'All Files' }) end },
-    { '<leader>b', function() require('telescope.builtin').buffers() end },
-    { '<leader>g', function() require('telescope').extensions.live_grep_args.live_grep_args() end },
-    { '<leader>h', function() require('telescope.builtin').oldfiles() end },
-    { '<leader>s', function() require('telescope.builtin').lsp_document_symbols() end },
+    { '<leader><leader>', function() require('telescope.builtin').find_files() end },
+    { '<leader>fh',       function() require('telescope.builtin').help_tags() end },
+    { '<leader>F',        function() require('telescope.builtin').find_files({ no_ignore = true, prompt_title =
+      'All Files' }) end },
+    { '<leader>b',        function() require('telescope.builtin').buffers() end },
+    { '<leader>g',        function() require('telescope').extensions.live_grep_args.live_grep_args() end },
+    { '<leader>h',        function() require('telescope.builtin').oldfiles() end },
+    { '<leader>s',        function() require('telescope.builtin').lsp_document_symbols() end },
+    { '<leader>y',        function() require('telescope.builtin').lsp_workspace_symbols() end },
+    { '<leader>w',        function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end },
+    { '<leader>x',        function() require('telescope.builtin').diagnostics() end },
+    { 'z=',        function() require('telescope.builtin').spell_suggest() end },
   },
-  config = function ()
+  config = function()
     local actions = require('telescope.actions')
 
     require('telescope').setup({
@@ -47,6 +54,8 @@ return {
             },
           },
         },
+        fzf = {},
+        ['ui-select'] = {},
       },
       pickers = {
         find_files = {
@@ -74,5 +83,6 @@ return {
     })
 
     require('telescope').load_extension('fzf')
+    require('telescope').load_extension('ui-select')
   end,
 }

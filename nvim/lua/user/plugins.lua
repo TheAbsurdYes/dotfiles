@@ -17,41 +17,41 @@ require("lazy").setup({
   -- one dark theme
   -- { import = 'user.plugins.onedark' },
 
-  -- tokyo theme
-  { import = 'user.plugins.tokyonight' },
+  -- colorscheme
+  { import = 'user.plugins.colorscheme' },
 
   -- Commenting support.
   'tpope/vim-commentary',
 
   -- Add, change, and delete surrounding text.
-  {'tpope/vim-surround'},
+  { import = 'user.plugins.surround' },
 
   -- Useful commands like :Rename and :SudoWrite.
-  {'tpope/vim-eunuch'},
+  { 'tpope/vim-eunuch' },
 
   -- Pairs of handy bracket mappings, like [b and ]b.
-  {'tpope/vim-unimpaired', event = 'VeryLazy' },
+  { 'tpope/vim-unimpaired' },
 
   -- Indent autodetection with editorconfig support.
-  {'tpope/vim-sleuth'},
+  { 'tpope/vim-sleuth' },
 
   -- Allow plugins to enable repeating of commands.
-  {'tpope/vim-repeat'},
+  { 'tpope/vim-repeat' },
 
   -- Add more languages.
   -- {'sheerun/vim-polyglot'},
-  
+
   -- Navigate seamlessly between Vim windows and Tmux panes.
-  {'christoomey/vim-tmux-navigator'},
+  -- {'christoomey/vim-tmux-navigator'},
 
   -- Jump to the last location when opening a file.
-  {'farmergreg/vim-lastplace'},
+  { 'farmergreg/vim-lastplace' },
 
   -- Enable * searching with visually selected text.
-  {'nelstrom/vim-visual-star-search'},
+  { 'nelstrom/vim-visual-star-search' },
 
   -- Automatically create parent dirs when saving.
-  {'jessarcher/vim-heritage'},
+  { 'jessarcher/vim-heritage' },
 
   -- Text objects for HTML attributes.
   {
@@ -63,16 +63,16 @@ require("lazy").setup({
   { import = "user.plugins.vim-rooter" },
 
   -- Automatically add closing brackets, quotes, etc.
-  { 'windwp/nvim-autopairs', config = true },
+  { 'windwp/nvim-autopairs',                 config = true },
 
   -- Add smooth scrolling to avoid jarring jumps
-  { 'karb94/neoscroll.nvim', config = true },
+  -- { 'karb94/neoscroll.nvim', config = true },
 
   -- All closing buffers without closing the split window.
   { import = "user.plugins.bufdelete" },
 
   -- Split arrays and methods onto multiple lines, or join them back up.
-  { import = "user.plugins.splitjoin" },
+  { import = "user.plugins.treesj" },
 
   -- Automatically fix indentation when pasting code.
   { import = "user.plugins.vim-pasta" },
@@ -81,22 +81,23 @@ require("lazy").setup({
   { import = 'user.plugins.telescope' },
 
   -- File tree sidebar
-  { import = 'user.plugins.neo-tree'},
+  -- { import = 'user.plugins.nvim-tree'},
+  { import = 'user.plugins.oil' },
 
   -- A Status line.
-  { import = 'user.plugins.lualine'},
+  { import = 'user.plugins.lualine' },
 
   -- Display buffers as tabs.
-  { import = 'user.plugins.bufferline'},
+  -- { import = 'user.plugins.bufferline'},
 
   -- Display indentation lines.
   { import = 'user.plugins.indent-blankline' },
-  
-  { import = 'user.plugins.dashboard-nvim'},
+
+  { import = 'user.plugins.dashboard-nvim' },
 
   { import = 'user.plugins.gitsigns' },
 
-  { 'tpope/vim-fugitive', dependencies = 'tpope/vim-rhubarb' },
+  { 'tpope/vim-fugitive',                    dependencies = 'tpope/vim-rhubarb' },
 
   --- Floating terminal.
   { import = 'user.plugins.floaterm' },
@@ -108,7 +109,8 @@ require("lazy").setup({
   { import = 'user.plugins.lspconfig' },
 
   -- Completion
-  { import = 'user.plugins.cmp' },
+  -- { import = 'user.plugins.cmp' },
+  { import = 'user.plugins.blink' },
 
   -- PHP Refactoring Tools
   { import = 'user.plugins.phpactor' },
@@ -118,30 +120,55 @@ require("lazy").setup({
 
   -- Testing helper
   { import = 'user.plugins.vim-test' },
-  
-  -- Debbuging stuff
-  --
-  { import = 'user.plugins.nvim-dap-ui' },
 
-  { import = 'user.plugins.mason-nvim-dap' },
-
-  { import = 'user.plugins.nvim-dap' },
-
+  -- Folke noice
   { import = 'user.plugins.noice' },
+
+  -- Orgmode
+  { import = 'user.plugins.orgmode' },
+
+  -- venv
+  { import = 'user.plugins.venv' },
+
+  -- harpoon
+  { import = 'user.plugins.harpoon' },
+
+  -- text case manipulation
+  { import = 'user.plugins.text-case' },
+
+  -- database stuff
+  { import = 'user.plugins.dadbod' },
+
+  -- better commands I guess
+  { import = 'user.plugins.dispatch' },
+
+  -- code snapshot
+  { import = 'user.plugins.codesnap' },
+
+  { import = 'user.plugins.snacks' },
 
   { import = 'user.plugins.refactoring' },
 
-  { import = 'user.plugins.mini-animate' },
+  -- { import = 'user.plugins.avante' },
 
-}, {
-  checker = {
-    enabled = true,
-    notify = false,
-  },
-  change_detection = {
-    notify = false,
-  },
-  install = {
-    colorscheme = { "tokyonight", "habamax" },
-  },
+  -- multiple cursors
+  -- { import = 'user.plugins.multi' },
+
+  -- tab-out feature
+  { import = 'user.plugins.tab-out' },
+
+  -- multiple cursors
+  { import = 'user.plugins.multicursor' },
+
+  -- compile mode
+  -- { import = 'user.plugins.compile-mode' },
+
+  { import = 'user.plugins.quicker'}
+
+  -- { import = 'user.plugins.nvim-dap' }
+
+  -- { import = 'user.plugins.mason-nvim-dap' }
+
+  -- { import = 'user.plugins.nvim-dap-ui' }
+
 })

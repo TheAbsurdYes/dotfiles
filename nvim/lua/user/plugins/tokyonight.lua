@@ -13,35 +13,35 @@ return {
       }
 
       -- Telescope
-      hl.TelescopeNormal = {
-        bg = c.bg_dark,
-        fg = c.fg_dark,
-      }
-      hl.TelescopeBorder = {
-        bg = c.bg_dark,
-        fg = c.bg_dark,
-      }
-      hl.TelescopePromptNormal = {
-        bg = prompt,
-      }
-      hl.TelescopePromptBorder = {
-        bg = prompt,
-        fg = prompt,
-      }
-      hl.TelescopePromptTitle = {
-        bg = c.bg,
-        fg = c.fg_dark,
-        -- bg = prompt,
-        -- fg = '#ffffff',
-      }
-      hl.TelescopePreviewTitle = {
-        bg = c.bg_dark,
-        fg = c.bg_dark,
-      }
-      hl.TelescopeResultsTitle = {
-        bg = c.bg_dark,
-        fg = c.bg_dark,
-      }
+      -- hl.TelescopeNormal = {
+      --   bg = c.bg_dark,
+      --   fg = c.fg_dark,
+      -- }
+      -- hl.TelescopeBorder = {
+      --   bg = c.bg_dark,
+      --   fg = c.bg_dark,
+      -- }
+      -- hl.TelescopePromptNormal = {
+      --   bg = prompt,
+      -- }
+      -- hl.TelescopePromptBorder = {
+      --   bg = prompt,
+      --   fg = prompt,
+      -- }
+      -- hl.TelescopePromptTitle = {
+      --   bg = c.bg,
+      --   fg = c.fg_dark,
+      --   -- bg = prompt,
+      --   -- fg = '#ffffff',
+      -- }
+      -- hl.TelescopePreviewTitle = {
+      --   bg = c.bg_dark,
+      --   fg = c.bg_dark,
+      -- }
+      -- hl.TelescopeResultsTitle = {
+      --   bg = c.bg_dark,
+      --   fg = c.bg_dark,
+      -- }
 
       -- Lualine
       hl.StatusLineNonText = {
@@ -55,13 +55,13 @@ return {
       }
 
       -- Floaterm
-      hl.Floaterm = {
-        bg = prompt,
-      }
-      hl.FloatermBorder = {
-        bg = prompt,
-        fg = prompt,
-      }
+      -- hl.Floaterm = {
+      --   bg = prompt,
+      -- }
+      -- hl.FloatermBorder = {
+      --   bg = prompt,
+      --   fg = prompt,
+      -- }
 
       -- Copilot
       hl.CopilotSuggestion = {

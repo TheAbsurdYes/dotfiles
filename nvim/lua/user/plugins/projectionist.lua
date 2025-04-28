@@ -35,6 +35,9 @@ return {
         ['database/migrations/*.php'] = {
           type = 'migration',
         },
+        ['database/seeders/*.php'] = {
+          type = 'seeder',
+        },
         ['config/*.php'] = {
           type = 'config',
         }

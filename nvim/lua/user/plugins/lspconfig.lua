@@ -17,6 +17,13 @@ return {
           "tailwindcss-language-server",
           "typescript-language-server",
           "css-lsp",
+          -- python
+          "mypy",
+          "ruff",
+          "pyright",
+          "pylsp",
+          "black",
+          "rust_analyzer",
         }
       }
     },
@@ -24,13 +31,25 @@ return {
     'b0o/schemastore.nvim',
     { 'jose-elias-alvarez/null-ls.nvim', dependencies = 'nvim-lua/plenary.nvim' },
     'jayp0521/mason-null-ls.nvim',
+    {
+      "folke/lazydev.nvim",
+      ft = "lua", -- only load on lua files
+      opts = {
+        library = {
+          -- See the configuration section for more details
+          -- Load luvit types when the `vim.uv` word is found
+          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        },
+      },
+    },
   },
   config = function()
     -- Setup Mason to automatically install LSP servers
     require('mason').setup()
     require('mason-lspconfig').setup({ automatic_installation = true })
 
-    local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+    -- local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+    local capabilities = require('blink.cmp').get_lsp_capabilities()
 
     -- Lua
     require('lspconfig').lua_ls.setup({
@@ -147,6 +166,7 @@ return {
 
     -- Vue, JavaScript, TypeScript
     require('lspconfig').volar.setup({
+      capabilities = capabilities,
       on_attach = function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
@@ -154,11 +174,43 @@ return {
         --   vim.lsp.buf.inlay_hint(bufnr, true)
         -- end
       end,
-      capabilities = capabilities,
       -- Enable "Take Over Mode" where volar will provide all JS/TS LSP services
       -- This drastically improves the responsiveness of diagnostic updates on change
-      filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+      -- filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
     })
+
+    local mason_registry = require('mason-registry')
+    local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
+        '/node_modules/@vue/language-server'
+
+    local util = require('lspconfig.util')
+
+    require('lspconfig').ts_ls.setup({
+      init_options = {
+        plugins = {
+          {
+            name = "@vue/typescript-plugin",
+            location = vue_language_server_path,
+            languages = { "vue" },
+          },
+        },
+        preferences = {
+          importModuleSpecifierPreference = 'non-relative',
+        },
+      },
+      filetypes = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+        "vue",
+      },
+    })
+
+    -- Prisma
+    require('lspconfig').prismals.setup({ capabilities = capabilities })
 
     -- Tailwind CSS
     require('lspconfig').tailwindcss.setup({ capabilities = capabilities })
@@ -177,12 +229,58 @@ return {
       },
     })
 
-    require('lspconfig').clangd.setup({
-      on_attach = function(client, bufnr)
-        client.server_capabilities.signatureHelpProvider = false
-        on_attach(client, bufnr)
+    -- require('lspconfig').clangd.setup({
+    --   on_attach = function(client, bufnr)
+    --     client.server_capabilities.signatureHelpProvider = false
+    --     on_attach(client, bufnr)
+    --   end,
+    --   capabilities = capabilities
+    -- })
+
+    require('lspconfig').elixirls.setup({
+      capabilities = capabilities,
+    })
+
+    require('lspconfig').pyright.setup({
+      capabilities = capabilities,
+      filetypes = { "python" },
+      root_dir = function(filename)
+        local root_files = {
+          'pyproject.toml',
+          'setup.py',
+          'setup.cfg',
+          'requirements.txt',
+          'Pipfile',
+          'pyrightconfig.json',
+          '.venv',
+          '.git',
+        }
+
+        return util.root_pattern(unpack(root_files))(filename) or vim.fs.dirname(filename)
       end,
-      capabilities = capabilities
+    })
+
+    require('lspconfig').yamlls.setup({
+      capabilities = capabilities,
+      filetypes = { "yaml" },
+    })
+
+    require('lspconfig').texlab.setup({
+      capabilities = capabilities,
+    })
+
+    require('lspconfig').rust_analyzer.setup({
+      capabilities = capabilities,
+      settings = {
+        ['rust-analyzer'] = {
+          cargo = {
+            allFeatures = true
+          },
+          diagnostics = {
+            enable = false,
+          }
+        }
+      }
     })
 
     -- null-ls
@@ -210,11 +308,28 @@ return {
         }),
         null_ls.builtins.formatting.prettier.with({
           condition = function(utils)
-            return utils.root_has_file({ '.prettierrc', '.prettierrc.json', '.prettierrc.yml', '.prettierrc.js',
-              'prettier.config.js' })
+            return utils.root_has_file({
+              '.prettierrc',
+              '.prettierrc.json',
+              '.prettierrc.yml',
+              '.prettierrc.js',
+              'prettier.config.js',
+            })
           end,
         }),
+
+        -- c stuff
         null_ls.builtins.formatting.clang_format,
+
+        -- python
+        null_ls.builtins.diagnostics.mypy.with({
+          extra_args = function()
+            local virtual = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX") or "/usr"
+            return { "--python-executable", virtual .. "/bin/python3", "--disable-error-code=import-untyped" }
+          end,
+        }),
+        null_ls.builtins.diagnostics.ruff,
+        null_ls.builtins.formatting.black,
       },
       on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
@@ -223,13 +338,15 @@ return {
             group = augroup,
             buffer = bufnr,
             callback = function()
-              vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 5000 })
+              vim.lsp.buf.format({
+                bufnr = bufnr,
+                timeout_ms = 5000,
+              })
             end,
           })
         end
       end,
     })
-
 
     require('mason-null-ls').setup({ automatic_installation = true })
 
@@ -245,8 +362,8 @@ return {
     vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
     vim.keymap.set('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
 
-    -- Commands
-    vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format({ timeout_ms = 5000 }) end, {})
+    -- Command
+    vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format({timeout_ms = 5000}) end, {})
 
     -- Diagnostic configuration
     vim.diagnostic.config({

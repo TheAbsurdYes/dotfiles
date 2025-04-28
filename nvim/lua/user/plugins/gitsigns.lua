@@ -5,7 +5,7 @@ return {
       { ']h', ':Gitsigns next_hunk<CR>'},
       { '[h', ':Gitsigns prev_hunk<CR>'},
       { 'gs', ':Gitsigns stage_hunk<CR>'},
-      { 'gS', ':Gitsigns undo_stage_hunk<CR>'},
+      { 'gu', ':Gitsigns undo_stage_hunk<CR>'},
       { 'gp', ':Gitsigns preview_hunk<CR>'},
       { 'gb', ':Gitsigns blame_line<CR>'},
     },

@@ -23,6 +23,8 @@ return {
     ensure_installed = {
       'arduino',
       'bash',
+      'bibtex',
+      'blade',
       'comment',
       'css',
       'diff',
@@ -40,6 +42,7 @@ return {
       'json',
       'jsonc',
       'lua',
+      'latex',
       'make',
       'markdown',
       'passwd',
@@ -56,6 +59,12 @@ return {
       'vue',
       'xml',
       'yaml',
+      'elixir',
+      'eex',
+      'heex',
+    },
+    ignore_install = {
+      'org'
     },
     auto_install = true,
     highlight = {
@@ -65,9 +74,9 @@ return {
       enable = true,
       disable = { "yaml" }
     },
-    context_commentstring = {
-      enable = true,
-    },
+    -- context_commentstring = {
+    --   enable = true,
+    -- },
     rainbow = {
       enable = true,
     },
@@ -83,11 +92,19 @@ return {
         },
       },
     },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = '<CR>',
+        scope_incremental = '<CR>',
+        node_incremental = '<TAB>',
+        node_decremental = '<S-TAB>',
+      },
+    },
   },
   config = function (_, opts)
-    require('nvim-treesitter.configs').setup(opts)
-
     local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+
     parser_config.blade = {
       install_info = {
         url = "https://github.com/EmranMR/tree-sitter-blade",
@@ -96,10 +113,13 @@ return {
       },
       filetype = "blade"
     }
+
     vim.filetype.add({
       pattern = {
         ['.*%.blade%.php'] = 'blade',
       },
     })
+
+    require('nvim-treesitter.configs').setup(opts)
   end,
 }

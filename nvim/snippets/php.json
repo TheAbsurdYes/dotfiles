@@ -1,0 +1,70 @@
+{
+  "Public Method": {
+    "prefix": "pubf",
+    "body": [
+      "public function ${1}(${2}): ${3}",
+      "{",
+      "\t${0}",
+      "}"
+    ],
+    "description": "public method"
+  },
+  "Public Static Method": {
+    "prefix": "pubsf",
+    "body": [
+      "public static function ${1}(${2}): ${3}",
+      "{",
+      "\t${0}",
+      "}"
+    ],
+    "description": "public static method"
+  },
+  "Protected Method": {
+    "prefix": "prof",
+    "body": [
+      "protected function ${1}(${2}): ${3}",
+      "{",
+      "\t${0}",
+      "}"
+    ],
+    "description": "protected method"
+  },
+  "Private Method": {
+    "prefix": "prif",
+    "body": [
+      "protected function ${1}(${2}): ${3}",
+      "{",
+      "\t${0}",
+      "}"
+    ],
+    "description": "private method"
+  },
+  "Test Method (Prefix)": {
+    "prefix": "testt",
+    "body": [
+      "public function test_${1}()",
+      "{",
+      "\t${0}",
+      "}"
+    ],
+    "description": "test method (prefix)"
+  },
+  "Test Method (Annotation)": {
+    "prefix": "testa",
+    "body": [
+      "/** @test */",
+      "public function ${1}()",
+      "{",
+      "\t${0}",
+      "}"
+    ],
+    "description": "test method (annotation)"
+  },
+  "Variable Declaration": {
+    "prefix": "v",
+    "body": [
+      "$${1} = ${0};"
+    ],
+    "description": "variable declaration"
+  }
+}

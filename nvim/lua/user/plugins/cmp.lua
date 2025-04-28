@@ -9,13 +9,15 @@ return {
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
     'onsails/lspkind-nvim',
+    "rafamadriz/friendly-snippets",
   },
   config = function()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
     local lspkind = require('lspkind')
 
-    require('luasnip/loaders/from_snipmate').lazy_load()
+    require('luasnip.loaders.from_snipmate').lazy_load()
+    require('luasnip.loaders.from_vscode').lazy_load()
 
     local has_words_before = function()
       local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -33,7 +35,7 @@ return {
     }
 
     local function ltrim(s)
-      return s:match'^%s*(.*)'
+      return s:match '^%s*(.*)'
     end
 
     cmp.setup({
@@ -66,10 +68,10 @@ return {
             if vim_item.kind == 'Color' and entry.completion_item.documentation then
               local _, _, r, g, b = string.find(entry.completion_item.documentation, '^rgb%((%d+), (%d+), (%d+)')
               if r then
-                local color = string.format('%02x', r) .. string.format('%02x', g) ..string.format('%02x', b)
+                local color = string.format('%02x', r) .. string.format('%02x', g) .. string.format('%02x', b)
                 local group = 'Tw_' .. color
                 if vim.fn.hlID(group) < 1 then
-                  vim.api.nvim_set_hl(0, group, {fg = '#' .. color})
+                  vim.api.nvim_set_hl(0, group, { fg = '#' .. color })
                 end
                 vim_item.kind_hl_group = group
                 return vim_item
@@ -93,7 +95,7 @@ return {
             fallback()
           end
         end, { "i", "s" }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
+        ["<C-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
           elseif luasnip.jumpable(-1) then
@@ -111,6 +113,7 @@ return {
         -- { name = 'copilot' },
         { name = 'buffer' },
         { name = 'path' },
+        { name = 'orgmode' },
       },
       experimental = {
         -- ghost_text = true,
