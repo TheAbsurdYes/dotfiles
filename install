@@ -19,7 +19,7 @@ ln -sf $DOTFILES/idea/.ideavimrc $HOME/.ideavimrc
 mkdir -p $HOME/.nvm
 ln -sf $DOTFILES/nvm/default-packages $HOME/.nvm/default-packages
 
-rm -rf $HOME/.config/ghostty
+mkdir -p $HOME/.emacs.d
 ln -sf $DOTFILES/emacs/init.el $HOME/.emacs.d/init.el
 
 rm -rf $HOME/.config/ghostty
