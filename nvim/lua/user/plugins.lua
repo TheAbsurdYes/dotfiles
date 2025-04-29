@@ -163,7 +163,13 @@ require("lazy").setup({
   -- compile mode
   -- { import = 'user.plugins.compile-mode' },
 
-  { import = 'user.plugins.quicker'}
+  { import = 'user.plugins.quicker'},
+
+  -- linter
+  { import = 'user.plugins.nvim-lint'},
+
+  -- formatter
+  { import = 'user.plugins.conform'},
 
   -- { import = 'user.plugins.nvim-dap' }
 

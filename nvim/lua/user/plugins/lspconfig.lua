@@ -2,35 +2,11 @@ return {
   'neovim/nvim-lspconfig',
   event = 'VeryLazy',
   dependencies = {
-    {
-      'williamboman/mason.nvim',
-      opt = {
-        ensure_installed = {
-          "clangd",
-          "clang-format",
-          "codelldb",
-          "stylua",
-          "selene",
-          "luacheck",
-          "shellcheck",
-          "shfmt",
-          "tailwindcss-language-server",
-          "typescript-language-server",
-          "css-lsp",
-          -- python
-          "mypy",
-          "ruff",
-          "pyright",
-          "pylsp",
-          "black",
-          "rust_analyzer",
-        }
-      }
-    },
+    'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     'b0o/schemastore.nvim',
-    { 'jose-elias-alvarez/null-ls.nvim', dependencies = 'nvim-lua/plenary.nvim' },
-    'jayp0521/mason-null-ls.nvim',
+    -- { 'jose-elias-alvarez/null-ls.nvim', dependencies = 'nvim-lua/plenary.nvim' },
+    -- 'jayp0521/mason-null-ls.nvim',
     {
       "folke/lazydev.nvim",
       ft = "lua", -- only load on lua files
@@ -284,71 +260,71 @@ return {
     })
 
     -- null-ls
-    local null_ls = require('null-ls')
-    local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-    null_ls.setup({
-      temp_dir = '/tmp',
-      sources = {
-        null_ls.builtins.diagnostics.eslint_d.with({
-          condition = function(utils)
-            return utils.root_has_file({ '.eslintrc.js' })
-          end,
-        }),
-        -- null_ls.builtins.diagnostics.phpstan, -- TODO: Only if config file
-        null_ls.builtins.diagnostics.trail_space.with({ disabled_filetypes = { 'NvimTree' } }),
-        null_ls.builtins.formatting.eslint_d.with({
-          condition = function(utils)
-            return utils.root_has_file({ '.eslintrc.js', '.eslintrc.json' })
-          end,
-        }),
-        null_ls.builtins.formatting.pint.with({
-          condition = function(utils)
-            return utils.root_has_file({ 'vendor/bin/pint' })
-          end,
-        }),
-        null_ls.builtins.formatting.prettier.with({
-          condition = function(utils)
-            return utils.root_has_file({
-              '.prettierrc',
-              '.prettierrc.json',
-              '.prettierrc.yml',
-              '.prettierrc.js',
-              'prettier.config.js',
-            })
-          end,
-        }),
+    -- local null_ls = require('null-ls')
+    -- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+    -- null_ls.setup({
+    --   temp_dir = '/tmp',
+    --   sources = {
+    --     null_ls.builtins.diagnostics.eslint_d.with({
+    --       condition = function(utils)
+    --         return utils.root_has_file({ '.eslintrc.js' })
+    --       end,
+    --     }),
+    --     -- null_ls.builtins.diagnostics.phpstan, -- TODO: Only if config file
+    --     null_ls.builtins.diagnostics.trail_space.with({ disabled_filetypes = { 'NvimTree' } }),
+    --     null_ls.builtins.formatting.eslint_d.with({
+    --       condition = function(utils)
+    --         return utils.root_has_file({ '.eslintrc.js', '.eslintrc.json' })
+    --       end,
+    --     }),
+    --     null_ls.builtins.formatting.pint.with({
+    --       condition = function(utils)
+    --         return utils.root_has_file({ 'vendor/bin/pint' })
+    --       end,
+    --     }),
+    --     null_ls.builtins.formatting.prettier.with({
+    --       condition = function(utils)
+    --         return utils.root_has_file({
+    --           '.prettierrc',
+    --           '.prettierrc.json',
+    --           '.prettierrc.yml',
+    --           '.prettierrc.js',
+    --           'prettier.config.js',
+    --         })
+    --       end,
+    --     }),
 
-        -- c stuff
-        null_ls.builtins.formatting.clang_format,
+    --     -- c stuff
+    --     null_ls.builtins.formatting.clang_format,
 
-        -- python
-        null_ls.builtins.diagnostics.mypy.with({
-          extra_args = function()
-            local virtual = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX") or "/usr"
-            return { "--python-executable", virtual .. "/bin/python3", "--disable-error-code=import-untyped" }
-          end,
-        }),
-        null_ls.builtins.diagnostics.ruff,
-        null_ls.builtins.formatting.black,
-      },
-      on_attach = function(client, bufnr)
-        if client.supports_method("textDocument/formatting") then
-          vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
-              vim.lsp.buf.format({
-                bufnr = bufnr,
-                timeout_ms = 5000,
-              })
-            end,
-          })
-        end
-      end,
-    })
+    --     -- python
+    --     null_ls.builtins.diagnostics.mypy.with({
+    --       extra_args = function()
+    --         local virtual = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX") or "/usr"
+    --         return { "--python-executable", virtual .. "/bin/python3", "--disable-error-code=import-untyped" }
+    --       end,
+    --     }),
+    --     null_ls.builtins.diagnostics.ruff,
+    --     null_ls.builtins.formatting.black,
+    --   },
+    --   on_attach = function(client, bufnr)
+    --     if client.supports_method("textDocument/formatting") then
+    --       vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    --       vim.api.nvim_create_autocmd("BufWritePre", {
+    --         group = augroup,
+    --         buffer = bufnr,
+    --         callback = function()
+    --           vim.lsp.buf.format({
+    --             bufnr = bufnr,
+    --             timeout_ms = 5000,
+    --           })
+    --         end,
+    --       })
+    --     end
+    --   end,
+    -- })
 
-    require('mason-null-ls').setup({ automatic_installation = true })
+    -- require('mason-null-ls').setup({ automatic_installation = true })
 
     -- Keymaps
     vim.keymap.set('n', '<Leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>')
@@ -363,7 +339,9 @@ return {
     vim.keymap.set('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
 
     -- Command
-    vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format({timeout_ms = 5000}) end, {})
+    vim.api.nvim_create_user_command('Format', function()
+      vim.lsp.buf.format({ timeout_ms = 5000 })
+    end, {})
 
     -- Diagnostic configuration
     vim.diagnostic.config({
