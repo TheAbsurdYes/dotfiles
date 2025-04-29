@@ -23,3 +23,6 @@ ln -sf $DOTFILES/emacs/init.el $HOME/.emacs.d/init.el
 
 rm -rf $HOME/.config/ghostty
 ln -sf $DOTFILES/ghostty $HOME/.config/ghostty
+
+rm -rf $HOME/.config/wezterm
+ln -sf $DOTFILES/wezterm $HOME/.config/wezterm
