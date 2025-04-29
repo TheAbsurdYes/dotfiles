@@ -6,6 +6,8 @@ rm -rf $HOME/.config/kitty
 ln -s $DOTFILES/kitty $HOME/.config/kitty
 
 ln -sf $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
+
+mkdir -p $HOME/.local/bin
 ln -sf $DOTFILES/scripts/t $HOME/.local/bin/t
 
 rm -rf $HOME/.config/nvim
