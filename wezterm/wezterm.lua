@@ -31,6 +31,8 @@ config.color_scheme = "Gruber (base16)"
 config.max_fps = 120
 config.prefer_egl = true
 
+config.audible_bell = "Disabled"
+
 config.keys = {
   {
     key = 'j',
