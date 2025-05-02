@@ -10,3 +10,4 @@ typescript
 vscode-langservers-extracted
 emmet-ls
 pnpm
+@biomejs/biome

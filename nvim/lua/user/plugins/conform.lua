@@ -3,10 +3,10 @@ return {
   opts = {
     formatters_by_ft = {
       php = { "pint" },
-      vue = { "prettierd", "prettier" },
-      javascript = { "prettierd", "prettier" },
-      typescript = { "prettierd", "prettier" },
-      typescriptreact = { "prettierd", "prettier" },
+      vue = { "biome", "eslint_d", stop_after_first = true },
+      javascript = { "biome", "eslint_d", stop_after_first = true },
+      typescript = { "biome", "eslint_d", stop_after_first = true },
+      typescriptreact = { "biome", "eslint_d", stop_after_first = true },
       rust = { "rustfmt", lsp_format = "fallback" },
     },
     format_on_save = {

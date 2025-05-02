@@ -143,7 +143,7 @@ return {
     -- Vue, JavaScript, TypeScript
     require('lspconfig').volar.setup({
       capabilities = capabilities,
-      on_attach = function(client, bufnr)
+      on_attach = function(client)
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
         -- if client.server_capabilities.inlayHintProvider then
