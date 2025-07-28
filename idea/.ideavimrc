@@ -43,20 +43,6 @@ nnoremap N Nzzzv
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-" For HarpoonIJ
-nmap <leader><C-7> :action SetHarpoon1<cr>
-nmap <leader><C-8> :action SetHarpoon2<cr>
-nmap <leader><C-9> :action SetHarpoon3<cr>
-nmap <leader><C-0> :action SetHarpoon4<cr>
-
-nmap <C-7> :action GotoHarpoon1<cr>
-nmap <C-8> :action GotoHarpoon2<cr>
-nmap <C-9> :action GotoHarpoon3<cr>
-nmap <C-0> :action GotoHarpoon4<cr>
-
-nmap <C-e> :action ShowHarpoon<cr>
-nmap <C-a> :action AddToHarpoon<cr>
-
 " Pane navigation
 " nnoremap <A-h> <C-w>h
 " nnoremap <A-l> <C-w>l
@@ -74,8 +60,9 @@ map <leader><leader> <Action>(SearchEverywhere)
 map <leader>o <Action>(GotoClass)
 map <leader>a <Action>(GotoAction)
 map <leader>f <Action>(GotoFile)
-map <leader>s <Action>(GotoSymbol)
-map <leader>d <Action>(FileStructurePopup)
+map <leader>w <Action>(GotoSymbol)
+map <leader>s <Action>(FileStructurePopup)
+map <leader>d <Action>(ShowErrorDescription)
 map <leader>e <Action>(RecentFiles)
 
 map <leader>t <Action>(Refactorings.QuickListPopupAction)
@@ -88,3 +75,13 @@ map <Leader>mf <action>(com.mituuz.fuzzier.FuzzyMover)
 map <Leader>gf <action>(com.mituuz.fuzzier.FuzzierVCS)
 
 map <Leader>1 <action>(SelectInProjectView)
+
+map <CR> <action>(EditorSelectWord)
+xmap <TAB> <action>(EditorSelectWord)
+xmap <S-TAB> <action>(EditorUnSelectWord)
+
+nmap gr <action>(FindUsages)
+nmap gi <action>(GotoImplementation)
+
+nmap <C-j> <action>(NextOccurence)
+nmap <C-K> <action>(PreviousOccurence)

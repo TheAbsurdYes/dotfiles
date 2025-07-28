@@ -9,10 +9,10 @@ return {
       typescriptreact = { "biome", "eslint_d", stop_after_first = true },
       rust = { "rustfmt", lsp_format = "fallback" },
     },
-    format_on_save = {
+    format_after_save = {
       -- These options will be passed to conform.format()
-      timeout_ms = 1000,
-      -- lsp_format = "fallback",
+      -- timeout_ms = 1000,
+      lsp_format = "fallback",
     },
   },
 }
