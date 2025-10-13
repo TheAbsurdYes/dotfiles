@@ -65,14 +65,12 @@ map <leader>s <Action>(FileStructurePopup)
 map <leader>d <Action>(ShowErrorDescription)
 map <leader>e <Action>(RecentFiles)
 
+map <leader>rn <Action>(RenameElement)
+
 map <leader>t <Action>(Refactorings.QuickListPopupAction)
 
 map <D-k> <Action>(EditorSelectWord) 
 map <D-j> <Action>(EditorUnSelectWord) 
-
-map <Leader>pf <action>(com.mituuz.fuzzier.Fuzzier)
-map <Leader>mf <action>(com.mituuz.fuzzier.FuzzyMover)
-map <Leader>gf <action>(com.mituuz.fuzzier.FuzzierVCS)
 
 map <Leader>1 <action>(SelectInProjectView)
 
@@ -85,3 +83,6 @@ nmap gi <action>(GotoImplementation)
 
 nmap <C-j> <action>(NextOccurence)
 nmap <C-K> <action>(PreviousOccurence)
+
+nmap ]d <action>(GotoNextError)
+nmap [d <action>(GotoPreviousError)
