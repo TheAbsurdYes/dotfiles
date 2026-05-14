@@ -64,6 +64,8 @@ map <leader>w <Action>(GotoSymbol)
 map <leader>s <Action>(FileStructurePopup)
 map <leader>d <Action>(ShowErrorDescription)
 map <leader>e <Action>(RecentFiles)
+map <leader>h <Action>(Vcs.ShowHistoryForBlock)
+map <leader>g <Action>(FindInPath)
 
 map <leader>rn <Action>(RenameElement)
 
