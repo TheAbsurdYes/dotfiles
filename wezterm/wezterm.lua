@@ -49,9 +49,16 @@ config.keys = {
     mods = 'CTRL',
     action = wezterm.action.DisableDefaultAssignment,
   },
+  {
+    key = 'Enter',
+    mods = 'ALT',
+    action = wezterm.action.DisableDefaultAssignment,
+  }
 }
 
 config.enable_kitty_keyboard = true
 config.enable_csi_u_key_encoding = false
+
+config.hyperlink_rules = wezterm.default_hyperlink_rules()
 
 return config
