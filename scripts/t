@@ -24,28 +24,38 @@ normalize_path() {
     )
 }
 
+path_in_list() {
+    local needle="$1"
+    shift
+
+    local item
+    for item in "$@"; do
+        [[ "$item" == "$needle" ]] && return 0
+    done
+
+    return 1
+}
+
 load_items() {
     local paths_file="$1"
     local path child
     local -a T_PATHS=()
-    local -A configured_roots=()
+    local -a configured_roots=()
 
     # shellcheck source=/dev/null
     source "$paths_file"
 
     for path in "${T_PATHS[@]}"; do
         path="$(normalize_path "$path")" || continue
-        configured_roots["$path"]=1
+        configured_roots+=("$path")
     done
 
-    for path in "${T_PATHS[@]}"; do
-        path="$(normalize_path "$path")" || continue
-
+    for path in "${configured_roots[@]}"; do
         if [[ "$path" == "$HOME/code" || "$path" == "$HOME/code/"* ]]; then
             while IFS= read -r child; do
                 child="$(normalize_path "$child")" || continue
 
-                if [[ -n "${configured_roots[$child]}" ]]; then
+                if path_in_list "$child" "${configured_roots[@]}"; then
                     continue
                 fi
 
