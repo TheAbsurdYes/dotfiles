@@ -10,6 +10,8 @@ config.hide_tab_bar_if_only_one_tab = true
 
 config.window_decorations = "RESIZE"
 
+config.enable_kitty_keyboard = true
+
 config.window_padding = {
   left = 0,
   right = 0,
@@ -57,7 +59,7 @@ config.keys = {
 }
 
 config.enable_kitty_keyboard = true
-config.enable_csi_u_key_encoding = false
+config.enable_csi_u_key_encoding = true
 
 config.hyperlink_rules = wezterm.default_hyperlink_rules()
 
