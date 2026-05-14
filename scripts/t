@@ -2,19 +2,87 @@
 
 # Credit to ThePrimeagen
 
+resolve_script_dir() {
+    local source="${BASH_SOURCE[0]}"
+
+    while [[ -L "$source" ]]; do
+        local dir
+        dir="$(cd -P "$(dirname "$source")" && pwd)"
+        source="$(readlink "$source")"
+        [[ "$source" != /* ]] && source="$dir/$source"
+    done
+
+    cd -P "$(dirname "$source")" && pwd
+}
+
+normalize_path() {
+    local path="$1"
+
+    [[ -d "$path" ]] || return 1
+    (
+        cd "$path" && pwd -P
+    )
+}
+
+load_items() {
+    local paths_file="$1"
+    local path child
+    local -a T_PATHS=()
+    local -A configured_roots=()
+
+    # shellcheck source=/dev/null
+    source "$paths_file"
+
+    for path in "${T_PATHS[@]}"; do
+        path="$(normalize_path "$path")" || continue
+        configured_roots["$path"]=1
+    done
+
+    for path in "${T_PATHS[@]}"; do
+        path="$(normalize_path "$path")" || continue
+
+        if [[ "$path" == "$HOME/code" || "$path" == "$HOME/code/"* ]]; then
+            while IFS= read -r child; do
+                child="$(normalize_path "$child")" || continue
+
+                if [[ -n "${configured_roots[$child]}" ]]; then
+                    continue
+                fi
+
+                printf '%s\n' "$child"
+            done < <(find "$path" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort)
+        else
+            printf '%s\n' "$path"
+        fi
+    done
+}
+
+paths_file="${T_PATHS_FILE:-$(resolve_script_dir)/.t-paths}"
+
 if [[ $# -eq 1 ]]; then
-    selected=$1
+    selected="$1"
 else
-    items=`find ~/code -maxdepth 2 -mindepth 1 -type d`
-    items+=`echo -e "\n/tmp"`
-    selected=`echo "$items" | fzf`
+    if [[ ! -f "$paths_file" ]]; then
+        echo "Missing $paths_file. Define T_PATHS=(...) in it." >&2
+        exit 1
+    fi
+
+    items="$(load_items "$paths_file" | awk '!seen[$0]++')"
+
+    if [[ -z "$items" ]]; then
+        echo "No valid directories found in $paths_file" >&2
+        exit 1
+    fi
+
+    selected="$(printf '%s\n' "$items" | fzf)"
+    [[ -z "$selected" ]] && exit 0
 fi
 
-dirname=`basename $selected | sed 's/\./_/g'`
+dirname="$(basename "$selected" | sed 's/\./_/g')"
 
-tmux switch-client -t =$dirname
+tmux switch-client -t "=$dirname"
 if [[ $? -eq 0 ]]; then
     exit 0
 fi
 
-tmux new-session -c $selected -d -s $dirname && tmux switch-client -t $dirname || tmux new -c $selected -A -s $dirname
+tmux new-session -c "$selected" -d -s "$dirname" && tmux switch-client -t "$dirname" || tmux new -c "$selected" -A -s "$dirname"
