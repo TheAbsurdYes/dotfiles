@@ -1,4 +1,5 @@
 local wezterm = require('wezterm')
+local mux = wezterm.mux
 
 local config = wezterm.config_builder()
 
@@ -62,5 +63,10 @@ config.enable_kitty_keyboard = true
 config.enable_csi_u_key_encoding = true
 
 config.hyperlink_rules = wezterm.default_hyperlink_rules()
+
+wezterm.on('gui-startup', function(cmd)
+  local _, _, window = mux.spawn_window(cmd or {})
+  window:gui_window():maximize()
+end)
 
 return config
